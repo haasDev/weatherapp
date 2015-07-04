@@ -18,14 +18,14 @@ gulp.task('concatScripts', function(){
 		 	.pipe(maps.init())
 		 	.pipe(concat('script.js'))
 		 	.pipe(maps.write('./'))
-		 	.pipe(gulp.dest('dist/js'));
+		 	.pipe(gulp.dest('js'));
 	});
 
 gulp.task('minifyScripts', ['concatScripts'], function(){
 	return gulp.src('dist/js/script.js')
 			.pipe(uglify())
 			.pipe(rename('script.min.js'))
-			.pipe(gulp.dest('dist/js'))
+			.pipe(gulp.dest('js'))
 			.pipe(browserSync.stream());
 	});
 
@@ -35,14 +35,14 @@ gulp.task('compileSass', function(){
 			.pipe(sass())
 			.pipe(rename('styles.css'))
 			.pipe(maps.write('./'))
-			.pipe(gulp.dest('dist/css'));
+			.pipe(gulp.dest('css'));
 	});
 
 gulp.task('uglifycss', ['compileSass'], function(){
 	return gulp.src('dist/css/styles.css')
 			 .pipe(uglifycss())
 			 .pipe(rename('styles.min.css'))
-			 .pipe(gulp.dest('dist/css'))
+			 .pipe(gulp.dest('css'))
 			 .pipe(browserSync.stream());
 	});
 
@@ -54,14 +54,14 @@ gulp.task('templates', function() {
       locals: YOUR_LOCALS,
       pretty: true
     }))
-    .pipe(gulp.dest('dist/'))
+    .pipe(gulp.dest('./'))
 });
 
 gulp.task('build', ['minifyScripts', 'compileSass']);
 
 gulp.task('serve', ['uglifycss', 'minifyScripts', 'templates'], function(){
 	browserSync.init({
-		server: 'dist/'
+		server: './'
 		});
 	gulp.watch('src/scss/**/*.scss', ['compileSass']);
 	gulp.watch('src/js/*.js', ['minifyScripts']);

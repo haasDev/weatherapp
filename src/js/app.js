@@ -33,6 +33,24 @@ function getLocation(currentLocation) {
         $('.content').css('color', 'white');
       }
 
+      //As a user, I can push a button to toggle between Fahrenheit and Celsius. 
+      $('#converter').on('click', function(){
+        var regex = /F$/;
+        
+        if( regex.exec($('#current_temp').text()) ){
+          temp = Math.round((temp - 32) * (5/9));
+          $('#current_temp').html('&#176; C');
+          $('button').text('Fahrenheit');
+        } else {
+          temp = Math.round(temp * (9/5) + 32);
+          $('#current_temp').html('&#176; F');
+          $('button').text('Celsius');
+        }
+
+        $('#current_temp').prepend(temp);
+
+      });
+
       $('#current_temp').prepend(temp);
 
       //As a user, I can see an icon depending on the temperature.
@@ -41,24 +59,5 @@ function getLocation(currentLocation) {
       // As a user, I see a different background image depending on the temperature (e.g. snowy mountain, hot desert).
       $('body').css('background-image', "url(img/"+now.icon+".png)");
     }
-  });
-
-  var regex = /F$/;
-
-  //As a user, I can push a button to toggle between Fahrenheit and Celsius. 
-  $('#converter').on('click', function(){
-    
-    if( regex.exec($('#current_temp').text()) ){
-      temp = Math.round((temp - 32) * (5/9));
-      $('#current_temp').html('&#176; C');
-      $('button').text('Fahrenheit');
-    } else {
-      temp = Math.round(temp * (9/5) + 32);
-      $('#current_temp').html('&#176; F');
-      $('button').text('Celsius');
-    }
-
-    $('#current_temp').prepend(temp);
-
   });
 }
