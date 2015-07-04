@@ -57,7 +57,7 @@ gulp.task('templates', function() {
     .pipe(gulp.dest('./'))
 });
 
-gulp.task('build', ['minifyScripts', 'compileSass']);
+gulp.task('build', ['minifyScripts', 'compileSass', 'templates']);
 
 gulp.task('serve', ['uglifycss', 'minifyScripts', 'templates'], function(){
 	browserSync.init({
